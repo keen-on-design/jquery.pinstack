@@ -1,0 +1,28 @@
+{
+  "name": "jquery.pinstack",
+  "version": "1.0.0",
+  "description": "Jquery pluginf to pin elements with stacking",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keen-on-design/jquery.pinstack.git"
+  },
+  "keywords": [
+    "jquey",
+    "jquery-plugin",
+    "pin",
+    "scroll"
+  ],
+  "author": "Nikita Konochkin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/keen-on-design/jquery.pinstack/issues"
+  },
+  "homepage": "https://github.com/keen-on-design/jquery.pinstack#readme",
+  "devDependencies": {
+    "gulp": "gulpjs/gulp#4.0"
+  }
+}

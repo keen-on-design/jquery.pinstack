@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>jQuery Pin</title>
+
+    <meta charset="utf-8">
+    <meta name="description" content="A jQuery plugin for pinning elements within a container.">
+
+    <link href='http://fonts.googleapis.com/css?family=Alfa+Slab+One' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Neuton:400,700,400italic' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Anonymous+Pro' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Cabin+Sketch' rel='stylesheet' type='text/css'>
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+      
+    <style>
+      * {
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+             ms-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+      body {
+        font-family: 'Neuton', serif;
+        font-size: 24px;
+        margin: 0;
+        padding: 0;
+        color: rgb(31,43,51);
+      }
+      h1, h2, h3, h4, h5, h6, .button {
+        font-family: 'Alfa Slab One', cursive;
+        font-weight: 400;
+      }
+      h1 {
+        font-size: 72px;
+        margin-bottom: 0;
+      }
+      h2 {
+        font-size: 48px;
+        margin: 72px 0 0;
+      }
+      a, a:visited, a:active {
+        text-decoration: none;
+        color: rgb(39, 148, 221);
+      }
+      a:hover {
+        color: rgb(123, 188, 253);
+      }
+      pre {
+        margin: 32px 3px;
+        padding: 32px 18px;
+        border: 1px solid rgb(135,140,134);
+        background: rgba(4, 18, 27, 0.88);
+        color: rgb(240,239,220);
+        box-shadow: 0 0px 8px rgb(88, 84, 57);
+      }
+      code {
+        font-family: 'Anonymous Pro', monospace;
+      }
+      header {
+        background: rgba(4, 18, 27, 0.88);
+        padding-bottom: 48px;
+        border-bottom: 1px solid rgb(219,216,199);
+        height: 200px;
+      }
+      footer {
+        margin-top: 72px;
+        font-size: 16px;
+        padding: 20px 0;
+        background: rgba(4, 18, 27, 0.88);
+      }
+      footer a, footer a:visited, footer a:active, .nav a, .nav a:visited, .nav a:active  {
+        color: rgb(240,239,220);
+      }
+      footer a:hover, .nav a:hover {
+        color: rgb(247, 246, 237);
+      }
+
+      header .wrapper {
+        position: relative;
+      }
+
+      p.lead {
+        font-size: 32px;
+        margin-top: 18px;
+      }
+
+      .clearfix:before,
+      .clearfix:after {
+          content: " "; /* 1 */
+          display: table; /* 2 */
+      }
+
+      .clearfix:after {
+          clear: both;
+      }
+
+      .wrapper {
+        max-width: 940px;
+        margin: 0 auto;
+      }
+      
+      .left-col {
+        width: 70%;
+        float: left;
+      }
+      
+      .right-col {
+        width: 28%;
+        margin-left: 2%;
+        float: left;
+        position: relative;
+        height: 100vh;
+      }
+      
+      #pin-block-top {
+        font-size: .8em;
+      }
+      
+      .pin {
+        border: 1px solid #ccc;
+      }
+      
+      .pin-example-1 {
+        height: 300px;
+        width: 100%;
+        background-color: azure;
+      }
+      
+      .pin-example-2 {
+        height: 400px;
+        width: 100%;
+        background-color: antiquewhite;
+      }
+      
+      .inside-container {
+        width: 100%;
+        border: 1px solid #000;
+        //margin: 1em 0;
+        position: relative;
+      }
+      
+      .inside-container .wrapper {
+        width: 80%;
+        margin-left: 0;
+      }
+      
+      .inside-container .buttons-container {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 50px;
+      }
+      
+      .inside-container .button--pin {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 10px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <header class="clearfix">
+    </header>
+    <div class="wrapper">
+      <section class="container clearfix">
+        <div class="row">
+          <div class="left-col">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pulvinar sagittis augue. Curabitur varius lacus id felis hendrerit, eget scelerisque eros semper. In ipsum erat, tristique non est dapibus, consequat tincidunt dolor. Cras laoreet sed quam ac ultrices. Nunc gravida ullamcorper nibh ut pellentesque. Donec tempor tellus vel ex fermentum fermentum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce quis tortor vel massa laoreet facilisis. Phasellus commodo luctus sapien, sed varius ligula aliquet porta. Duis tristique sem a porta facilisis. Donec vestibulum nulla id rhoncus dapibus. Aenean imperdiet at odio ut varius.
+            </p>
+            
+            <div class="inside-container" id="uniq-container-id1">
+              <div class="wrapper">
+                <p>Quisque ultricies massa vel efficitur bibendum. Aenean enim dolor, dapibus vel ullamcorper et, semper eu dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sed est neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu facilisis justo. Donec maximus sem ac est viverra convallis. Suspendisse potenti. Cras cursus velit sed turpis fringilla dictum. Pellentesque sagittis nunc neque, in blandit turpis tincidunt in. Aliquam erat volutpat. Duis pulvinar faucibus lacinia. Etiam non turpis id enim facilisis pulvinar quis at nisl. Donec porttitor metus vel diam eleifend molestie.
+                </p>
+              </div>
+              <div class="buttons-container">
+                <div class="buttons-pin" data-pinstack-reference="#uniq-container-id1">
+                  <div class="button--pin">
+                  </div>
+                  <div class="button--pin">
+                  </div>
+                  <div class="button--pin">
+                  </div>
+                </div>
+              </div>
+          </div>
+            
+            <p>
+
+Suspendisse blandit sed felis non pretium. Morbi at nibh nec lorem maximus sodales. Integer quis dignissim orci. Maecenas eget urna a quam mattis tincidunt non ut libero. Ut auctor molestie sem, quis vestibulum elit elementum id. Ut nec pharetra sem, in ultricies ipsum. Mauris sed risus vulputate, hendrerit risus vitae, porta quam. Donec rhoncus sit amet magna vitae tincidunt. Sed et hendrerit lacus, in imperdiet nibh. Aliquam pellentesque ex justo, non faucibus leo vestibulum id. Aliquam erat volutpat. Pellentesque laoreet gravida dui vitae lobortis. Pellentesque volutpat nisi ut leo fermentum, quis vestibulum turpis euismod. Aenean vitae laoreet massa. Sed ullamcorper ultrices lectus, eget interdum turpis vehicula eu. Morbi eros arcu, dapibus eu rutrum vel, dignissim ut ligula.
+
+Quisque ultricies massa vel efficitur bibendum. Aenean enim dolor, dapibus vel ullamcorper et, semper eu dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sed est neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu facilisis justo. Donec maximus sem ac est viverra convallis. Suspendisse potenti. Cras cursus velit sed turpis fringilla dictum. Pellentesque sagittis nunc neque, in blandit turpis tincidunt in. Aliquam erat volutpat. Duis pulvinar faucibus lacinia. Etiam non turpis id enim facilisis pulvinar quis at nisl. Donec porttitor metus vel diam eleifend molestie.
+
+Donec bibendum quam augue, vel euismod erat tempor quis. Suspendisse tincidunt nisl nibh, nec mattis leo feugiat vitae. Etiam egestas diam quis mi molestie, sed volutpat dui mattis. Duis aliquam porta felis quis pellentesque. Morbi ultricies rhoncus leo sed cursus. Aenean lacus orci, pretium non pulvinar vitae, blandit sed lectus. Donec vel auctor ipsum. Phasellus lobortis sapien eu nisl condimentum, at congue sem rhoncus.</p>
+            <div class="inside-container" id="uniq-container-id2">
+              <div class="wrapper">
+                <p>Quisque ultricies massa vel efficitur bibendum. Aenean enim dolor, dapibus vel ullamcorper et, semper eu dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sed est neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu facilisis justo. Donec maximus sem ac est viverra convallis. Suspendisse potenti. Cras cursus velit sed turpis fringilla dictum. Pellentesque sagittis nunc neque, in blandit turpis tincidunt in. Aliquam erat volutpat. Duis pulvinar faucibus lacinia. Etiam non turpis id enim facilisis pulvinar quis at nisl. Donec porttitor metus vel diam eleifend molestie.
+
+Donec bibendum quam augue, vel euismod erat tempor quis. Suspendisse tincidunt nisl nibh, nec mattis leo feugiat vitae. Etiam egestas diam quis mi molestie, sed volutpat dui mattis. Duis aliquam porta felis quis pellentesque. Morbi ultricies rhoncus leo sed cursus. Aenean lacus orci, pretium non pulvinar vitae, blandit sed lectus. Donec vel auctor ipsum. Phasellus lobortis sapien eu nisl condimentum, at congue sem rhoncus.
+                </p>
+              </div>
+              <div class="buttons-container">
+                <div class="buttons-pin" data-pinstack-reference="#uniq-container-id2">
+                  <div class="button--pin">
+                  </div>
+                  <div class="button--pin">
+                  </div>
+                  <div class="button--pin">
+                  </div>
+                </div>
+              </div>
+          </div>
+<p>
+Etiam tristique congue velit aliquam consequat. Duis nibh ex, convallis at tincidunt et, fringilla id lacus. Nunc sed eleifend lorem. Mauris ut tortor leo. Nunc lacus purus, maximus quis nisi vel, gravida varius tortor. Maecenas sed magna malesuada, bibendum mauris a, imperdiet ante. Pellentesque pretium mi a porttitor dictum. Donec pretium congue eros, quis lacinia ante. Vestibulum euismod cursus sapien eu ornare. Sed sed dolor ut lacus suscipit lacinia.
+
+Integer tempus, purus consectetur suscipit dignissim, ipsum augue fermentum risus, vitae ultrices urna purus vitae augue. Nulla facilisi. Duis eu mauris quis massa venenatis consectetur ut eu quam. Integer magna ex, finibus vel augue a, tincidunt imperdiet enim. Donec tincidunt, nibh non euismod ultricies, quam purus tincidunt ipsum, et facilisis dui lectus id nisl. Aenean eu risus id leo maximus interdum vel sit amet sem. Proin nec purus eget nisi sagittis rhoncus a eu ligula. Ut viverra id ipsum id porta. Vivamus tempor mauris turpis, bibendum tincidunt ipsum viverra ac. Nunc dapibus dui non magna ornare semper. Nunc tristique fringilla risus at lacinia. Vestibulum sit amet lorem quis leo finibus consequat nec et dolor. Integer nulla ex, tincidunt non purus id, placerat imperdiet arcu. Nam ligula nunc, interdum sed tellus at, commodo elementum erat.
+
+Morbi in quam id est ultricies consequat. Vivamus pellentesque, mi vel efficitur ornare, ex orci sagittis mi, non laoreet dolor nisl id odio. Suspendisse augue nisi, condimentum sed lacus a, congue luctus ante. Cras in rhoncus nulla. Pellentesque interdum tristique volutpat. Pellentesque scelerisque ornare est vitae fermentum. Phasellus sed porta metus, nec viverra mi. Vestibulum faucibus convallis metus, nec malesuada sapien ultricies quis. Nullam tempor molestie velit, at auctor lorem rhoncus porta. Integer vulputate feugiat dui. Sed aliquam vehicula est, nec porta nibh consectetur eget.
+
+Quisque vehicula lacinia odio. Aliquam a lorem sem. Duis ut interdum neque, et tincidunt sem. Maecenas pellentesque mollis orci, vitae mollis enim sagittis quis. Ut a velit eget augue scelerisque gravida. Praesent in sodales purus. Vestibulum tempor mauris in faucibus vulputate.
+
+Suspendisse sit amet mi non augue tempus placerat scelerisque at magna. Donec tempor, est eu posuere bibendum, erat neque volutpat est, vel condimentum nisl arcu vel ligula. Integer molestie dui in elementum hendrerit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Fusce eu sodales lorem. Cras ut tortor non nulla volutpat cursus ut at ipsum. Integer porttitor scelerisque tristique. In in congue felis, eu sollicitudin justo. Mauris eget urna mi. Nullam non aliquam lectus, vel ullamcorper mi. Nunc a ex vulputate, sodales libero sed, aliquam ex. Duis iaculis varius vestibulum. Integer condimentum commodo metus, et imperdiet tellus semper quis. Suspendisse sed aliquet arcu. Curabitur vel sapien eget ligula pulvinar volutpat ac in nibh.</p>
+            <div class="inside-container" id="uniq-container-id3">
+              <div class="wrapper">
+                <p>Quisque ultricies massa vel efficitur bibendum. Aenean enim dolor, dapibus vel ullamcorper et, semper eu dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras sed est neque. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent eu facilisis justo. Donec maximus sem ac est viverra convallis. Suspendisse potenti. Cras cursus velit sed turpis fringilla dictum. Pellentesque sagittis nunc neque, in blandit turpis tincidunt in. Aliquam erat volutpat. Duis pulvinar faucibus lacinia. Etiam non turpis id enim facilisis pulvinar quis at nisl. Donec porttitor metus vel diam eleifend molestie.
+                </p>
+              </div>
+              <div class="buttons-container">
+                <div class="buttons-pin" data-pinstack-reference="#uniq-container-id3">
+                  <div class="button--pin">
+                  </div>
+                  <div class="button--pin">
+                  </div>
+                  <div class="button--pin">
+                  </div>
+                </div>
+              </div>
+          </div>
+          <p>
+
+Morbi quis magna augue. Phasellus non bibendum felis, eu sodales elit. Fusce velit ex, convallis sed efficitur vel, dignissim id sapien. Maecenas vitae tempor dolor. Praesent id consectetur ipsum, scelerisque dapibus odio. Proin at convallis massa, ut elementum ligula. Aliquam feugiat justo sit amet neque facilisis, in molestie lacus egestas. Donec dictum maximus leo, et suscipit nulla consequat eu. Sed molestie tempor mi in dictum. Morbi porta blandit lorem, vitae pretium mauris suscipit in.
+
+Curabitur et nisi lobortis, ullamcorper leo vitae, porttitor mauris. Donec pharetra vitae dolor at efficitur. Donec eu dignissim orci. Duis ipsum urna, cursus ut eros non, aliquet ultrices lorem. In libero est, vehicula quis faucibus sit amet, mollis eu sapien. Fusce dapibus ac urna non cursus. Proin diam nisi, commodo in ultrices eget, faucibus eget est. Mauris at ornare leo. Maecenas tincidunt leo sit amet rhoncus mattis. Pellentesque eu ipsum quis ex tincidunt finibus vitae non lacus.
+
+Sed ac enim lacus. Suspendisse purus ante, sodales sodales feugiat eu, tempus vel nunc. Cras ut malesuada diam, ac elementum justo. Suspendisse potenti. Proin felis ligula, pretium eget dapibus eu, dictum vel odio. Etiam sapien nisi, fermentum non suscipit eu, vulputate eget arcu. Maecenas ut faucibus orci. Nunc ac facilisis quam. Nullam porttitor massa magna, vitae imperdiet elit pellentesque sit amet. Sed vitae sollicitudin ex, non scelerisque est. Fusce semper purus lorem, sit amet feugiat lorem pharetra ut.
+
+Donec finibus lacinia pellentesque. Donec eu maximus lectus. Ut vitae tortor neque. Suspendisse nisl justo, rhoncus non porta a, cursus quis urna. Vivamus ac quam in tortor porta dapibus. Proin efficitur pulvinar quam non feugiat. Suspendisse pulvinar enim lectus, ac tristique ante pellentesque eu. Donec ac velit elementum, vehicula urna at, luctus leo.
+
+Aenean libero ante, accumsan non turpis vitae, consectetur eleifend nibh. Nam blandit suscipit sem. Nam porta, odio et sollicitudin sagittis, mauris nisi sodales metus, ut imperdiet risus nisl id eros. Vestibulum convallis magna vitae ipsum volutpat pharetra. Nunc suscipit pulvinar posuere. Ut egestas felis nec cursus volutpat. Pellentesque pharetra enim at sapien placerat, in consequat magna fringilla. Vestibulum lobortis molestie risus, sit amet gravida sem sollicitudin quis. Morbi feugiat, ipsum vitae ultricies iaculis, neque mi eleifend magna, ut blandit quam libero eget mi. Mauris mattis facilisis libero, eget viverra ex euismod a. Fusce imperdiet tellus sapien, at tempus arcu dignissim eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus felis purus, vehicula id tincidunt id, consequat vel libero. Pellentesque at erat dapibus, fringilla sem eget, rhoncus est. Aliquam erat volutpat.
+
+Curabitur ac blandit odio. Fusce nec leo arcu. Quisque augue leo, efficitur eget nulla a, consequat consectetur quam. Cras eu odio ullamcorper, posuere lorem eget, porttitor orci. Donec blandit id augue eget ullamcorper. Phasellus a imperdiet tortor. Phasellus fermentum iaculis pretium. Maecenas sed metus sit amet dolor porta laoreet feugiat ac risus. Sed ante diam, semper ac dictum sed, lacinia et tellus. Quisque sagittis vestibulum mattis. Nunc ligula dui, sollicitudin sit amet pulvinar vitae, auctor ut nisi. Aenean sagittis, ante ut aliquet laoreet, mauris orci volutpat augue, quis sodales diam est quis neque. Praesent sit amet iaculis tortor, non fermentum turpis. Cras eleifend turpis sed felis maximus, ac egestas nunc porta. In massa massa, blandit sed est ac, elementum feugiat turpis. Ut lacus purus, rutrum sed mattis eu, vestibulum sed leo.</p>
+          </div>
+          <div class="right-col" id="pinBoxContainer">
+            <div class="pin" data-pinstack-tostack="right-col">
+              <div class="pin-example-1">
+              </div>
+            </div>
+            
+            <div class="pin" data-pinstack-tostack="right-col">
+              <div class="pin-example-2">
+              </div>
+            </div>
+            
+            <!--<div class="pin" id="pin-block-top2">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pulvinar sagittis augue. Curabitur varius lacus id felis hendrerit, eget scelerisque eros semper. In ipsum erat, tristique non est dapibus, consequat tincidunt dolor. Cras laoreet sed quam ac ultrices. Nunc gravida ullamcorper nibh ut pellentesque.</p>
+            </div>-->
+            
+          </div>
+        </div>
+      </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="src/js/jquery.pinstack.js"></script>
+    <script>
+      $(document).ready(function() {
+        $(".pin").pinstack({
+		  offsetTop   : 20,
+          duration    : 100,
+          durationMax : 100000,
+          stack       : true
+        });
+        
+        $(".buttons-pin").pinstack({
+		  offsetTop     : 10,
+          offsetBottom  : 20,
+          duration      : 100,
+          durationMax   : 100000,
+        });
+      });
+    </script>
+  </body>
+</html>
