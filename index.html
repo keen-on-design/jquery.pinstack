@@ -259,11 +259,6 @@ Curabitur ac blandit odio. Fusce nec leo arcu. Quisque augue leo, efficitur eget
               </div>
             </div>
             
-            <div class="pin" data-pinstack-tostack="right-col">
-              <div class="pin-example-2">
-              </div>
-            </div>
-            
             <!--<div class="pin" id="pin-block-top2">
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pulvinar sagittis augue. Curabitur varius lacus id felis hendrerit, eget scelerisque eros semper. In ipsum erat, tristique non est dapibus, consequat tincidunt dolor. Cras laoreet sed quam ac ultrices. Nunc gravida ullamcorper nibh ut pellentesque.</p>
             </div>-->
@@ -277,17 +272,21 @@ Curabitur ac blandit odio. Fusce nec leo arcu. Quisque augue leo, efficitur eget
     <script>
       $(document).ready(function() {
         $(".pin").pinstack({
-		  offsetTop   : 20,
-          duration    : 100,
-          durationMax : 100000,
-          stack       : true
+		  offsetTop   : 0,
+          duration    : 90,
+          durationMax : 0,
+          stack       : true,
+          
+          onProgress : function () {
+            console.log(this.getProgress($(window).scrollTop()));
+          }
         });
         
         $(".buttons-pin").pinstack({
 		  offsetTop     : 10,
           offsetBottom  : 20,
           duration      : 100,
-          durationMax   : 100000,
+          durationMax   : 0,
         });
       });
     </script>

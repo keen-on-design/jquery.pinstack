@@ -70,6 +70,11 @@
         boundTop              = offsetTopRelative(this.$element, this.$reference) + this.$reference.offset().top - this.options.offsetTop,
         boundBottom           = duration - this.dimensions.height - this.options.offsetBottom;
       
+      if (durationMax === 0) {
+        duration    = durationToAbsolute;
+        boundBottom = duration - this.dimensions.height - this.options.offsetBottom;
+      }
+      
       this.bounds = {
         top    : boundTop,
         bottom : boundBottom
@@ -83,6 +88,23 @@
     inBounds : function (scrollTop) {
       var top = this.scrollToBounds(scrollTop);
       return ((top >= 0) && (top <= this.bounds.bottom));
+    },
+    
+    getProgress : function (scrollTop) {
+      var top = this.scrollToBounds(scrollTop);
+      //eturn top;
+      if (top <= 0) {
+        return 0;
+      }
+      
+      if (top >= this.bounds.bottom) {
+        return 100;
+      }
+      
+      return {
+        relative : (top / this.bounds.bottom).toFixed(2),
+        absolute : top
+      };
     },
     
     onResize : function () {
@@ -113,6 +135,9 @@
     checkPin : function () {
       var scrollTop = $(window).scrollTop();
       if (this.inBounds(scrollTop)) {
+        if ($.isFunction(this.options.onProgress)) {
+          this.options.onProgress.call(this);
+        }
         this.pin(scrollTop);
       } else {
         this.unpin(scrollTop);
